@@ -24,31 +24,25 @@ throw new std::exception("The -DPROJECT_NAME flag was not set.");
 /**
  * Define description
  */
-const std::string helpers::Config::description = "A small description of your project (a one line explanation).";
+const std::string helpers::Config::description = "Minimum blockchain implementation";
 
 /**
  * Define author
  */
-const std::string helpers::Config::author = "Project Author <author@example.ltd>";
-
-/**
- * Define default options
- */
-bool helpers::Config::optDaemon = false;
-bool helpers::Config::optDebug = false;
+const std::string helpers::Config::author = "Pocoś Jakub Rojek <jakubrojek@gmail.com>";
 
 /**
  * Print a banner 
  */
 void helpers::Config::printBanner() {
-    std::cout << "██████╗ ██████╗  ██████╗      ██╗███████╗ ██████╗████████╗" << std::endl;
-    std::cout << "██╔══██╗██╔══██╗██╔═══██╗     ██║██╔════╝██╔════╝╚══██╔══╝" << std::endl;
-    std::cout << "██████╔╝██████╔╝██║   ██║     ██║█████╗  ██║        ██║   " << std::endl;
-    std::cout << "██╔═══╝ ██╔══██╗██║   ██║██   ██║██╔══╝  ██║        ██║   " << std::endl;
-    std::cout << "██║     ██║  ██║╚██████╔╝╚█████╔╝███████╗╚██████╗   ██║   " << std::endl;
-    std::cout << "╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝   " << std::endl;
+    std::cout << "██╗      █████╗ ███╗   ███╗███████╗    ██████╗ ████████╗ ██████╗" << std::endl;
+    std::cout << "██║     ██╔══██╗████╗ ████║██╔════╝    ██╔══██╗╚══██╔══╝██╔════╝" << std::endl;
+    std::cout << "██║     ███████║██╔████╔██║█████╗      ██████╔╝   ██║   ██║     " << std::endl;
+    std::cout << "██║     ██╔══██║██║╚██╔╝██║██╔══╝      ██╔══██╗   ██║   ██║     " << std::endl;
+    std::cout << "███████╗██║  ██║██║ ╚═╝ ██║███████╗    ██████╔╝   ██║   ╚██████╗" << std::endl;
+    std::cout << "╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═════╝    ╚═╝    ╚═════╝" << std::endl;
 
-    std::cout << "Version " << helpers::Config::version << " - Copyright 2017 " << helpers::Config::author << std::endl;
+    std::cout << "Version " << helpers::Config::version << " - Copyright 2020 " << helpers::Config::author << std::endl;
     std::cout << std::endl;
 }
 
@@ -59,10 +53,17 @@ cxxopts::Options helpers::Config::initializeArgs(int argc, char *argv[]) {
     cxxopts::Options options(helpers::Config::name, helpers::Config::description + std::string("\n"));
 
     options.add_options()
-        ("h,help",          "Print this help message and exit.")
-        ("d,daemon",        "Launch as a daemon (in the background).")
-        ("debug",           "Enable debugging mode.")
-    ;
+            ("h,help",          "Print this help message and exit.")
+            ("a,add",           "add data", cxxopts::value<std::string>())
+            ("b,block",         "get block", cxxopts::value<uint32_t>())
+            ("d,remove",        "remove block", cxxopts::value<uint32_t>())
+            ("i,info",          "get statistics")
+            ("m,mine",          "mine new block")
+            ("p,print",         "print chain")
+            ("r,read",          "read data", cxxopts::value<uint32_t>())
+            ("s,start",         "start new chain")
+            ("v,verify",        "verify integrity")
+            ;
 
     try {
         options.parse(argc, argv);
@@ -77,10 +78,6 @@ cxxopts::Options helpers::Config::initializeArgs(int argc, char *argv[]) {
         std::cout << options.help({""}) << std::endl;
         exit(EXIT_SUCCESS);
     }
-
-    // Set all options
-    helpers::Config::optDebug = !!options.count("debug");
-    helpers::Config::optDaemon = !!options.count("daemon");
 
     return options;
 }
