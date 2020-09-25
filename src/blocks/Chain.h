@@ -42,7 +42,6 @@ private:
     void getBlockData(std::vector<std::string> &a_vData, std::vector<std::string> &a_vCleanup);
     void cleanupData(std::vector<std::string> const& dbKeys);
 
-    uint32_t m_iDifficulty;
     std::vector<Block> m_vChain;
     leveldb::DB* m_db;
     leveldb::WriteOptions m_writeOpts;

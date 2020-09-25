@@ -61,7 +61,6 @@ Chain::Chain(Mode a_mode)
     }
     else
         throw std::invalid_argument("Invalid option");
-    m_iDifficulty = 1;
 }
 
 Chain::~Chain()

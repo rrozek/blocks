@@ -41,21 +41,8 @@ void Block::mineBlock(uint32_t a_iDifficulty)
         m_tTime = time(nullptr);
         m_iNonce++;
         if (m_iNonce % 100000 == 0)
-        {
-            std::cout << "still mining..." << m_sHash << std::endl;
-            {
-                std::stringstream ss;
-                ss << m_iIndex << m_sPrevHash << m_tTime << m_iNonce;
-                std::copy(m_vData.begin(), m_vData.end(), std::ostream_iterator<std::string>(ss,", "));
-                std::string hash_hex_str = picosha2::hash256_hex_string(ss.str()); 
-                std::cout << "content " << ss.str() << std::endl;
-                std::cout << "hash " << hash_hex_str << std::endl;
-            }
-        }
-        if (m_iNonce == -1)
-        {
-            std::cout << "No solution?!" << std::endl;
-        }
+            std::cout << "checked " << m_iNonce << " but still mining..." << m_sHash << std::endl;
+
         m_sHash = calculateHash();
     }
     while (m_sHash.substr(0, a_iDifficulty) != str);
