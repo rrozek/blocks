@@ -1,6 +1,6 @@
 PROJECT			:= lamebtc
 VERSION			:= $(shell cat .semver)
-COMPILER		:= g++-6
+COMPILER		:= g++
 
 INCLUDE_FOLDERS		:= $(wildcard lib/*/include)
 INCLUDE_FLAGS		:= $(foreach folder,$(INCLUDE_FOLDERS),-I$(folder))
